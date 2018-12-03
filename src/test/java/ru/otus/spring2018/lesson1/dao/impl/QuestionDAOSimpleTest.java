@@ -10,9 +10,8 @@ import static org.junit.Assert.*;
 public class QuestionDAOSimpleTest {
     @Test
     public void getQuestions() throws Exception {
-        QuestionDAOSimple questionDAOSimple = new QuestionDAOSimple("questions.csv");
+        QuestionDAOSimple questionDAOSimple = new QuestionDAOSimple("samples/questions_test.csv");
         List<Question> questions = questionDAOSimple.getQuestions();
-        assertFalse(questions.isEmpty());
         assertEquals(questions.size(), 5);
     }
 

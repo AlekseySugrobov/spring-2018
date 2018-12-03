@@ -14,11 +14,11 @@ public class CSVUtils {
         try {
             ClassPathResource classPathResource = new ClassPathResource(fileName);
             File file = classPathResource.getFile();
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-               data.add(scanner.nextLine().split(","));
+            try (Scanner scanner = new Scanner(file)) {
+                while (scanner.hasNextLine()) {
+                    data.add(scanner.nextLine().split(","));
+                }
             }
-            scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
