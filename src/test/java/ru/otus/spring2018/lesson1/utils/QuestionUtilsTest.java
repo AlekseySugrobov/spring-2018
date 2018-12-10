@@ -1,15 +1,17 @@
 package ru.otus.spring2018.lesson1.utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@DisplayName("Тесты QuestionUtils")
 public class QuestionUtilsTest {
     @Test
+    @DisplayName("Тест получения ответов")
     public void getAnswers() throws Exception {
         String inputString = "Ответ1 Ответ2";
         List<String> answers = QuestionUtils.getAnswers(inputString);

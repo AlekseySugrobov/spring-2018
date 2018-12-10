@@ -3,6 +3,7 @@ package ru.otus.spring2018.lesson1.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class TestResult {
     private String name;
@@ -25,10 +26,14 @@ public class TestResult {
         return Collections.unmodifiableList(questions);
     }
 
-    public void printResult() {
-        System.out.println(String.format("Имя: %s", this.getName()));
+    public void printResult(ResourceBundle resourceBundle) {
+        System.out.println(String.format("%s: %s", resourceBundle.getString("app.output.name"), this.getName()));
         for(Question question:this.getQuestions()) {
-            System.out.println(String.format("Текст вопроса: %s|Результат: %s", question.getText(), question.isCorrect() ? "Верный" : "Неверный"));
+            System.out.println(String.format("%s: %s|%s: %s",
+                    resourceBundle.getString("app.output.question-text"),
+                    question.getText(),
+                    resourceBundle.getString("app.output.result"),
+                    question.isCorrect() ? resourceBundle.getString("app.output.result.correct") : resourceBundle.getString("app.output.result.incorrect")));
         }
     }
 }
