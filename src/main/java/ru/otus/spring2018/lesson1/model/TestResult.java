@@ -3,8 +3,12 @@ package ru.otus.spring2018.lesson1.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class TestResult {
+
+    private static final String NEW_ROW = "\r\n";
+
     private String name;
     private List<Question> questions;
 
@@ -25,10 +29,18 @@ public class TestResult {
         return Collections.unmodifiableList(questions);
     }
 
-    public void printResult() {
-        System.out.println(String.format("Имя: %s", this.getName()));
-        for(Question question:this.getQuestions()) {
-            System.out.println(String.format("Текст вопроса: %s|Результат: %s", question.getText(), question.isCorrect() ? "Верный" : "Неверный"));
+    public void printResult(ResourceBundle resourceBundle) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("%s: %s", resourceBundle.getString("app.output.name"), this.getName()))
+                .append(NEW_ROW);
+        for (Question question : this.getQuestions()) {
+            stringBuilder.append(String.format("%s: %s|%s: %s",
+                    resourceBundle.getString("app.output.question-text"),
+                    question.getText(),
+                    resourceBundle.getString("app.output.result"),
+                    question.isCorrect() ? resourceBundle.getString("app.output.result.correct") : resourceBundle.getString("app.output.result.incorrect")))
+                    .append(NEW_ROW);
         }
+        System.out.println(stringBuilder.toString());
     }
 }
