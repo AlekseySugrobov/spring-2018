@@ -10,7 +10,6 @@ import ru.otus.spring2018.lesson1.dao.impl.QuestionDAOSimple;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 @PropertySource("classpath:application.properties")
 @Configuration
@@ -19,11 +18,6 @@ public class MainConfig {
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
-    }
-
-    @Bean
-    public Scanner scanner() {
-        return new Scanner(System.in);
     }
 
     @Bean

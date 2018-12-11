@@ -14,12 +14,11 @@ import java.util.Scanner;
 public class InputServiceImpl implements InputService {
 
     private QuestionService questionService;
-    private Scanner scanner;
+    private Scanner scanner = new Scanner(System.in);
     private ResourceBundle resourceBundle;
 
-    public InputServiceImpl(QuestionService questionService, Scanner scanner, ResourceBundle resourceBundle) {
+    public InputServiceImpl(QuestionService questionService, ResourceBundle resourceBundle) {
         this.questionService = questionService;
-        this.scanner = scanner;
         this.resourceBundle = resourceBundle;
     }
 

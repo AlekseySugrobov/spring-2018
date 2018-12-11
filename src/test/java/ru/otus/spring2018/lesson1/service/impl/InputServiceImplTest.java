@@ -32,7 +32,7 @@ class InputServiceImplTest {
         questionService = mock(QuestionServiceImpl.class);
         ResourceBundle resourceBundle = ResourceBundle.getBundle("console", new Locale("en"));
         when(questionService.getQuestions()).thenReturn(Arrays.asList(new Question("Вопрос1", Collections.emptyList()), new Question("Вопрос2", Collections.emptyList())));
-        inputService = new InputServiceImpl(questionService, scanner, resourceBundle);
+        inputService = new InputServiceImpl(questionService, resourceBundle);
     }
 
     @Test

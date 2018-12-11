@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class TestResult {
+
+    private static final String NEW_ROW = "\r\n";
+
     private String name;
     private List<Question> questions;
 
@@ -27,13 +30,17 @@ public class TestResult {
     }
 
     public void printResult(ResourceBundle resourceBundle) {
-        System.out.println(String.format("%s: %s", resourceBundle.getString("app.output.name"), this.getName()));
-        for(Question question:this.getQuestions()) {
-            System.out.println(String.format("%s: %s|%s: %s",
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("%s: %s", resourceBundle.getString("app.output.name"), this.getName()))
+                .append(NEW_ROW);
+        for (Question question : this.getQuestions()) {
+            stringBuilder.append(String.format("%s: %s|%s: %s",
                     resourceBundle.getString("app.output.question-text"),
                     question.getText(),
                     resourceBundle.getString("app.output.result"),
-                    question.isCorrect() ? resourceBundle.getString("app.output.result.correct") : resourceBundle.getString("app.output.result.incorrect")));
+                    question.isCorrect() ? resourceBundle.getString("app.output.result.correct") : resourceBundle.getString("app.output.result.incorrect")))
+                    .append(NEW_ROW);
         }
+        System.out.println(stringBuilder.toString());
     }
 }
