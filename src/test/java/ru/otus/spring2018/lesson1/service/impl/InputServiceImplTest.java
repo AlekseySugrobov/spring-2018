@@ -4,6 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import ru.otus.spring2018.lesson1.model.Question;
 import ru.otus.spring2018.lesson1.service.QuestionService;
 
@@ -15,11 +18,16 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @DisplayName("Тесты сервиса работы с пользователем")
+@SpringBootTest
 class InputServiceImplTest {
 
     private static final String DEFAULT_INPUT = "default input";
 
-    @Mock
+    @Value("${main.bundle}")
+    private String bundleName;
+    @Value("${main.locale}")
+    private String localeName;
+    @Autowired
     private QuestionService questionService;
     private Scanner scanner;
     private InputServiceImpl inputService;
@@ -29,9 +37,7 @@ class InputServiceImplTest {
         ByteArrayInputStream in = new ByteArrayInputStream(DEFAULT_INPUT.getBytes());
         System.setIn(in);
         scanner = new Scanner(System.in);
-        questionService = mock(QuestionServiceImpl.class);
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("console", new Locale("en"));
-        when(questionService.getQuestions()).thenReturn(Arrays.asList(new Question("Вопрос1", Collections.emptyList()), new Question("Вопрос2", Collections.emptyList())));
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(bundleName, new Locale(localeName));
         inputService = new InputServiceImpl(questionService, resourceBundle);
     }
 
@@ -46,7 +52,7 @@ class InputServiceImplTest {
     @DisplayName("Тест получения вопросов")
     void getQuestions() {
         List<Question> questions = inputService.getQuestions();
-        assertThat(questions).isNotNull().hasSize(2);
+        assertThat(questions).isNotNull().hasSize(5);
     }
 
     @Test
