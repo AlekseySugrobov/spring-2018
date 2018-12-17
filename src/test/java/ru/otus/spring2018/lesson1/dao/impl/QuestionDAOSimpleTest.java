@@ -1,32 +1,27 @@
 package ru.otus.spring2018.lesson1.dao.impl;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import ru.otus.spring2018.lesson1.dao.QuestionDAO;
 import ru.otus.spring2018.lesson1.model.Question;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("Тесты QuestionDAO")
+@SpringBootTest
 public class QuestionDAOSimpleTest {
 
-    private Properties properties;
-
-    @BeforeEach
-    public void setUp() throws IOException {
-        properties = new Properties();
-        properties.load(QuestionDAOSimpleTest.class.getClassLoader().getResourceAsStream("application.properties"));
-    }
+    @Autowired
+    private QuestionDAO questionDAO;
 
     @Test
     @DisplayName("Получение списка вопросов")
     public void getQuestions() {
-        QuestionDAOSimple questionDAOSimple = new QuestionDAOSimple(properties.getProperty("main.file"));
-        List<Question> questions = questionDAOSimple.getQuestions();
+        List<Question> questions = questionDAO.getQuestions();
         assertEquals(questions.size(), 5);
     }
 

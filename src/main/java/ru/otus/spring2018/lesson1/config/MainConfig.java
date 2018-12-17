@@ -3,7 +3,6 @@ package ru.otus.spring2018.lesson1.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import ru.otus.spring2018.lesson1.dao.QuestionDAO;
 import ru.otus.spring2018.lesson1.dao.impl.QuestionDAOSimple;
@@ -11,7 +10,6 @@ import ru.otus.spring2018.lesson1.dao.impl.QuestionDAOSimple;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-@PropertySource("classpath:application.properties")
 @Configuration
 public class MainConfig {
 

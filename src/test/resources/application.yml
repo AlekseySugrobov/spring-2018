@@ -1,0 +1,4 @@
+main:
+  file: samples/questions_test.csv
+  locale: ru
+  bundle: console
