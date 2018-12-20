@@ -2,6 +2,7 @@ package ru.otus.spring2018.lesson1.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import ru.otus.spring2018.lesson1.exception.InputException;
 import ru.otus.spring2018.lesson1.model.Question;
 import ru.otus.spring2018.lesson1.model.TestResult;
 import ru.otus.spring2018.lesson1.service.InputService;
@@ -49,10 +50,8 @@ public class InputServiceImpl implements InputService {
     }
 
     @Override
-    public void askAnswers() {
-        if(StringUtils.isEmpty(this.userName)) {
-            System.out.println("You didn't introduce yourself");
-        }
+    public void askAnswers() throws InputException {
+        checkNameEntered();
         testResult = new TestResult(this.userName);
         for (Question question : questions) {
             String answer = askAnswer(question.getText());
@@ -62,12 +61,22 @@ public class InputServiceImpl implements InputService {
     }
 
     @Override
-    public void printResult() {
-        if (Objects.isNull(testResult)) {
-            System.out.println("You didn't start test");
-            return;
-        }
+    public void printResult() throws InputException {
+        checkNameEntered();
+        checkTestPassed();
         testResult.printResult(resourceBundle);
+    }
+
+    private void checkTestPassed() throws InputException {
+        if (Objects.isNull(testResult)) {
+            throw new InputException(resourceBundle.getString("exception.testNotPassed"));
+        }
+    }
+
+    private void checkNameEntered() throws InputException {
+        if(StringUtils.isEmpty(this.userName)) {
+            throw new InputException(resourceBundle.getString("exception.emptyName"));
+        }
     }
 
     protected String askAnswer(String text) {

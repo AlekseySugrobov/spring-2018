@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import ru.otus.spring2018.lesson1.exception.InputException;
 import ru.otus.spring2018.lesson1.service.InputService;
 
 @ShellComponent
@@ -23,11 +24,19 @@ public class Commands {
 
     @ShellMethod("Start test")
     public void start() {
-        this.inputService.askAnswers();
+        try {
+            this.inputService.askAnswers();
+        } catch (InputException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @ShellMethod("Print result")
     public void result() {
-        this.inputService.printResult();
+        try {
+            this.inputService.printResult();
+        } catch (InputException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }
