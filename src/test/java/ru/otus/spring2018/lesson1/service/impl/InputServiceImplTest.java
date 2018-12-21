@@ -45,7 +45,7 @@ class InputServiceImplTest {
     @Test
     @DisplayName("Тест запроса ответа")
     void askAnswer() {
-        String answer = inputService.askAnswer("");
+        String answer = inputService.askAnswer(new Question(new String[]{"Вопрос1", "Question1", "Ответ1"}));
         assertThat(answer).isEqualTo(DEFAULT_INPUT);
     }
 

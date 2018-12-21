@@ -36,7 +36,7 @@ public class InputServiceImpl implements InputService {
         String userName = getUserName();
         TestResult testResult = new TestResult(userName);
         for (Question question : questions) {
-            String answer = askAnswer(question.getText());
+            String answer = askAnswer(question);
             question.handleAnswer(answer);
             testResult.addQuestion(question);
         }
@@ -54,7 +54,7 @@ public class InputServiceImpl implements InputService {
         checkNameEntered();
         testResult = new TestResult(this.userName);
         for (Question question : questions) {
-            String answer = askAnswer(question.getText());
+            String answer = askAnswer(question);
             question.handleAnswer(answer);
             testResult.addQuestion(question);
         }
@@ -79,8 +79,9 @@ public class InputServiceImpl implements InputService {
         }
     }
 
-    protected String askAnswer(String text) {
-        System.out.println(resourceBundle.getString("app.input.question") + String.format("%s?", text));
+    protected String askAnswer(Question question) {
+        String questionText = resourceBundle.getLocale().toString().equals("ru") ? question.getText() : question.getTranslatedText();
+        System.out.println(resourceBundle.getString("app.input.question") + String.format("%s?", questionText));
         return scanner.nextLine();
     }
 

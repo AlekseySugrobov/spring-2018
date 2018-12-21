@@ -34,9 +34,10 @@ public class TestResult {
         stringBuilder.append(String.format("%s: %s", resourceBundle.getString("app.output.name"), this.getName()))
                 .append(NEW_ROW);
         for (Question question : this.getQuestions()) {
+            String questionText = resourceBundle.getLocale().toString().equals("ru") ? question.getText() : question.getTranslatedText();
             stringBuilder.append(String.format("%s: %s|%s: %s",
                     resourceBundle.getString("app.output.question-text"),
-                    question.getText(),
+                    questionText,
                     resourceBundle.getString("app.output.result"),
                     question.isCorrect() ? resourceBundle.getString("app.output.result.correct") : resourceBundle.getString("app.output.result.incorrect")))
                     .append(NEW_ROW);

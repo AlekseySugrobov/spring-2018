@@ -7,19 +7,23 @@ import org.springframework.shell.standard.ShellOption;
 import ru.otus.spring2018.lesson1.exception.InputException;
 import ru.otus.spring2018.lesson1.service.InputService;
 
+import java.util.ResourceBundle;
+
 @ShellComponent
 public class Commands {
     private final InputService inputService;
+    private final ResourceBundle resourceBundle;
 
     @Autowired
-    public Commands(InputService inputService) {
+    public Commands(InputService inputService, ResourceBundle resourceBundle) {
         this.inputService = inputService;
+        this.resourceBundle = resourceBundle;
     }
 
     @ShellMethod("Introduce user")
     public String introduce(@ShellOption String name) {
         this.inputService.setUserName(name);
-        return "name saved";
+        return resourceBundle.getString("app.output.nameSaved");
     }
 
     @ShellMethod("Start test")
