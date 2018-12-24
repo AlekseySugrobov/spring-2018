@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.shell.jline.InteractiveShellApplicationRunner;
 import ru.otus.spring2018.lesson1.model.Question;
 import ru.otus.spring2018.lesson1.service.QuestionService;
 
@@ -18,7 +19,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @DisplayName("Тесты сервиса работы с пользователем")
-@SpringBootTest
+@SpringBootTest(properties = {InteractiveShellApplicationRunner.SPRING_SHELL_INTERACTIVE_ENABLED + "=false"})
 class InputServiceImplTest {
 
     private static final String DEFAULT_INPUT = "default input";
@@ -44,7 +45,7 @@ class InputServiceImplTest {
     @Test
     @DisplayName("Тест запроса ответа")
     void askAnswer() {
-        String answer = inputService.askAnswer("");
+        String answer = inputService.askAnswer(new Question(new String[]{"Вопрос1", "Question1", "Ответ1"}));
         assertThat(answer).isEqualTo(DEFAULT_INPUT);
     }
 
